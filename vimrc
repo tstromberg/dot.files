@@ -36,6 +36,7 @@ Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -69,7 +70,8 @@ nmap <F8> :TagbarToggle<CR>
 
 " UI ------------------------------------------------------------------------->
 set background=dark
-set guifont=Inconsolata
+set guifont=Source\ Code\ Pro\ Medium\ 10
+
 colorscheme pablo
 set t_Co=256
 
@@ -108,6 +110,7 @@ let g:go_fmt_command = "goimports"
 " Type-specific overrides ---------------------------------------------------->
 " For go, <tab>'s are great.
 autocmd FileType go setlocal noexpandtab nolist shiftwidth=4 tabstop=4 softtabstop=4
+
 
 " Import local settings ------------------------------------------------------>
 if filereadable(expand("~/.vimrc.local"))
