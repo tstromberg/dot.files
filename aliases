@@ -5,6 +5,63 @@ alias 'hogs'='du -kx . | sort -rn | more'
 alias 'hitlist'='find . -name "*core" -o \( -atime +120 -a -mtime +120 -a -size +250 \) -exec ls -lad {} \;'
 alias 'bigrpm'='rpm -qa --queryformat "%{name}-%{version}-%{release} %{size}\n" | sort -n -k 2n'
 
+loop() {
+  sleep=$1
+  shift
+  tmpfile=$(mktemp)
+  echo "||| Logging to ${tmpfile}"
+  while /bin/true; do
+    echo "||| Running: $@"
+    $@ 2>&1 | tee ${tmpfile}
+    exitcode=$?
+    echo "||| Exited with code: $exitcode"
+    echo "||| Sleeping for $sleep seconds ..."
+    sleep $sleep;
+  done
+}
+
+
+loop_until_failure() {
+  exitcode=0
+  tmpfile=$(mktemp)
+  set -o pipefail
+
+  echo "||| Logging to ${tmpfile}"
+  while [[ $exitcode -eq 0 ]]; do
+    echo "||| Running: $@"
+    $@ 2>&1 | tee ${tmpfile}
+    exitcode=$?
+    echo "||| Exited with code: $exitcode"
+    if [[ $exitcode == 0 ]]; then
+      echo "||| Sleeping for 2 seconds ..."
+      sleep 2;
+    else
+      err=$(echo $@ | sed s/" "/_/g | cut -c1-80)
+      mail -s "error=$err" ${USERNAME}@google.com < ${tmpfile}
+      echo "Mailed to ${USERNAME} ..."
+    fi
+  done
+  set -o nopipefail
+}
+
+loop_until_success() {
+  exitcode=1
+  tmpfile=$(mktemp)
+  set -o pipefail
+
+  echo "||| Logging to ${tmpfile}"
+  while [[ $exitcode -ne 0 ]]; do
+    echo "||| Running: $@"
+    $@ 2>&1 | tee ${tmpfile}
+    exitcode=$?
+    echo "||| Exited with code: $exitcode"
+    if [[ $exitcode != 0 ]]; then
+      sleep 1;
+    fi
+  done
+  set -o nopipefail
+}
+
 # overwrite some commands 
 if [ -x /usr/bin/killall -a ! -x /usr/bin/pkill ]; then
   alias pkill='killall'

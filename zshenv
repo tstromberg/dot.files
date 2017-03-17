@@ -25,7 +25,8 @@ alias host='nocorrect host'
 alias emacs='nocorrect emacs'
 alias touch='nocorrect touch'
 alias grep='nocorrect grep'
-  
+alias bspc='nocorrect bspc'
+
 setopt correctall   # correct all
 setopt autocd     # go into a directory if it is entered.
 setopt appendhistory

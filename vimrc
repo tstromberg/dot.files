@@ -2,7 +2,9 @@
 set autochdir            " set working directory to match the current file
 set backup
 set backupdir=~/.vim/backup
-set expandtab            " To insert space characters whenever <tab> is pressed
+
+set foldmethod=syntax    " Enable automatic code folding.
+set foldlevel=5          " Keep things unfolded by default.
 set hidden
 set history=200          " Store last 200 commands as history.
 set hlsearch             " Highlight previous search results
@@ -22,6 +24,7 @@ set softtabstop=2        " How many spaces to insert if you hit tab.
 set tabstop=2            " Viewing a real tab uses two columns.
 set undolevels=200
 set wildmenu wildmode=longest:full
+set noeb vb t_vb=        " Disable those terrible error bells.
 
 syntax on
 
@@ -32,11 +35,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " Other Plugins go here.
-Plugin 'fatih/vim-go'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'fatih/vim-go'         " Go support
+Plugin 'kien/ctrlp.vim'       " Fuzzy Searching
+Plugin 'majutsushi/tagbar'    " Sidebar Outline
+Plugin 'scrooloose/syntastic' " Syntax checking
+Plugin 'NLKNguyen/papercolor-theme'  " Theme
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -55,8 +62,8 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 
 
 " Key/Command mappings ------------------------------------------------------->
-nnoremap ; :                          " save precious keystrokes
-cmap w!! w !sudo tee % >/dev/null     " double exclamations to use sudo
+nnoremap ; :
+cmap w!! w !sudo tee % >/dev/null
 let mapleader=','
 
 " By default all window-related commands are under <C-w>, but these allow switching windows with <C-{hjkl}>
@@ -68,12 +75,21 @@ nmap <C-l> <C-w>l
 " Show a tagbar if F8 is hit.
 nmap <F8> :TagbarToggle<CR>
 
-" UI ------------------------------------------------------------------------->
-set background=dark
-set guifont=Source\ Code\ Pro\ Medium\ 10
+" Toggle folds
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
 
-colorscheme pablo
+" UI ------------------------------------------------------------------------->
+set background=light
+colorscheme PaperColor
+" let g:airline_theme='papercolor'
+" let g:lightline = { 'colorscheme': 'PaperColor' }
+set guifont=Source\ Code\ Pro\ 9
 set t_Co=256
+let g:PaperColor_Light_Override = { 'background' : '#abcdef', 'cursorline' : '#dfdfff', 'matchparen' : '#d6d6d6' , 'comment' : '#8e908c' }
+
 
 " hate whitespace: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight default link TrailingWhitespace Error
@@ -82,6 +98,9 @@ augroup filetypedetect
 augroup END
 autocmd InsertEnter * match none
 autocmd InsertLeave * match TrailingWhitespace /\s\+$/
+
+" Hide the toolbar.
+set guioptions -=T
 
 " Highlight long lines in certain languages...
 au BufWinEnter,WinEnter *.cc,*.h,*.py,*.sh if !exists("w:warning_match_id") | let w:warning_match_id = matchadd('WarningMsg', '\%>80v.\+', -1) | endif
@@ -97,6 +116,7 @@ au! BufWritePost .vimrc source %
 " automatically strip trailing whitespace
 autocmd BufWritePost *.php :%s/\s\+$//e
 autocmd BufWritePost *.rules :%s/\s\+$//e
+autocmd BufWritePost *.borg :%s/\s\+$//e
 autocmd BufWritePost *.rb :%s/\s\+$//e
 autocmd BufWritePost BUILD :%s/\s\+$//e
 autocmd BufWritePost *.py :%s/\s\+$//e
@@ -104,13 +124,16 @@ autocmd BufWritePost *.sh :%s/\s\+$//e
 autocmd BufWritePost *.yml :%s/\s\+$//e
 autocmd BufWritePost *.yaml :%s/\s\+$//e
 autocmd BufWritePost *.gcl :%s/\s\+$//e
+autocmd BufWritePost *.tmpl :%s/\s\+$//e
 
-let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "goimports"
 
 " Type-specific overrides ---------------------------------------------------->
 " For go, <tab>'s are great.
-autocmd FileType go setlocal noexpandtab nolist shiftwidth=4 tabstop=4 softtabstop=4
+":autocmd FileType go setlocal noexpandtab nolist shiftwidth=4 tabstop=4 softtabstop=4
 
+autocmd FileType python setlocal expandtab list
+autocmd FileType go setlocal nolist ts=4
 
 " Import local settings ------------------------------------------------------>
 if filereadable(expand("~/.vimrc.local"))
