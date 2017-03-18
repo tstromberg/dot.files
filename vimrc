@@ -55,8 +55,8 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 
 
 " Key/Command mappings ------------------------------------------------------->
-nnoremap ; :                          " save precious keystrokes
-cmap w!! w !sudo tee % >/dev/null     " double exclamations to use sudo
+nnoremap ; :
+cmap w!! w !sudo tee % >/dev/null
 let mapleader=','
 
 " By default all window-related commands are under <C-w>, but these allow switching windows with <C-{hjkl}>
