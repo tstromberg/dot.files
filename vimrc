@@ -3,8 +3,8 @@ set autochdir            " set working directory to match the current file
 set backup
 set backupdir=~/.vim/backup
 
-set foldmethod=syntax    " Enable automatic code folding.
-set foldlevel=5          " Keep things unfolded by default.
+" set foldmethod=syntax    " Enable automatic code folding.
+" set foldlevel=5          " Keep things unfolded by default.
 set hidden
 set history=200          " Store last 200 commands as history.
 set hlsearch             " Highlight previous search results
@@ -34,16 +34,15 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
+Plugin 'morhetz/gruvbox'
 " Other Plugins go here.
 "Plugin 'fatih/vim-go'         " Go support
 Plugin 'kien/ctrlp.vim'       " Fuzzy Searching
 Plugin 'majutsushi/tagbar'    " Sidebar Outline
-Plugin 'scrooloose/syntastic' " Syntax checking
-Plugin 'NLKNguyen/papercolor-theme'  " Theme
+" Plugin 'scrooloose/syntastic' " Syntax checking
+"Plugin 'NLKNguyen/papercolor-theme'  " Theme
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'itchyny/lightline.vim'
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -82,13 +81,11 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 
 " UI ------------------------------------------------------------------------->
-set background=light
-colorscheme PaperColor
-" let g:airline_theme='papercolor'
-" let g:lightline = { 'colorscheme': 'PaperColor' }
-set guifont=Source\ Code\ Pro\ 9
+set background=dark
+colorscheme gruvbox
+let g:airline_theme='solarized'
+set guifont=Source\ Code\ Pro\ 11
 set t_Co=256
-let g:PaperColor_Light_Override = { 'background' : '#abcdef', 'cursorline' : '#dfdfff', 'matchparen' : '#d6d6d6' , 'comment' : '#8e908c' }
 
 
 " hate whitespace: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
@@ -126,8 +123,6 @@ autocmd BufWritePost *.yaml :%s/\s\+$//e
 autocmd BufWritePost *.gcl :%s/\s\+$//e
 autocmd BufWritePost *.tmpl :%s/\s\+$//e
 
-"let g:go_fmt_command = "goimports"
-
 " Type-specific overrides ---------------------------------------------------->
 " For go, <tab>'s are great.
 ":autocmd FileType go setlocal noexpandtab nolist shiftwidth=4 tabstop=4 softtabstop=4
@@ -139,5 +134,4 @@ autocmd FileType go setlocal nolist ts=4
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-
 
