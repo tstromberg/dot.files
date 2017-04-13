@@ -86,6 +86,8 @@ if [ -d "/usr/local/go" ]; then
   GOBIN=$GOROOT/bin
   export GOBIN GOROOT
 fi
+export GOPATH="$HOME/go"
+export PATH="$PATH:$HOME/go/bin"
 
 # avoid adding duplicate paths
 for dir in `echo $add_bin_paths | xargs`
