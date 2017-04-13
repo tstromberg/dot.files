@@ -25,6 +25,7 @@ set tabstop=2            " Viewing a real tab uses two columns.
 set undolevels=200
 set wildmenu wildmode=longest:full
 set noeb vb t_vb=        " Disable those terrible error bells.
+set mouse=a
 
 syntax on
 
@@ -34,11 +35,13 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
+Plugin 'morhetz/gruvbox'
+
 " Other Plugins go here.
-"Plugin 'fatih/vim-go'         " Go support
+Plugin 'fatih/vim-go'         " Go support
 Plugin 'kien/ctrlp.vim'       " Fuzzy Searching
 Plugin 'majutsushi/tagbar'    " Sidebar Outline
-Plugin 'scrooloose/syntastic' " Syntax checking
+"Plugin 'scrooloose/syntastic' " Syntax checking
 Plugin 'NLKNguyen/papercolor-theme'  " Theme
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -46,6 +49,11 @@ Plugin 'itchyny/lightline.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+let g:go_info_mode = 'guru'
+let g:go_metalinter_command = '~/bin/gometalinter'
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'g3build', 'g3vet']
 
 " Plugin settings ------------------------------------------------------------>
 " By default, CtrlP uses globpath() to build its index. You can dramatically speed up indexing by using https://github.com/ggreer/the_silver_searcher instead.
@@ -82,8 +90,8 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 
 " UI ------------------------------------------------------------------------->
-set background=light
-colorscheme PaperColor
+set background=dark
+colorscheme gruvbox
 " let g:airline_theme='papercolor'
 " let g:lightline = { 'colorscheme': 'PaperColor' }
 set guifont=Source\ Code\ Pro\ 9
@@ -112,6 +120,7 @@ let g:vim_json_syntax_conceal = 0
 " Pre/Post-Write Bindings ---------------------------------------------------->
 " auto-reload changes to .vimrc
 au! BufWritePost .vimrc source %
+au! BufWritePost .vimrc.local source %
 
 " automatically strip trailing whitespace
 autocmd BufWritePost *.php :%s/\s\+$//e
