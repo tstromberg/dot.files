@@ -76,7 +76,8 @@ done
 add_bin_paths="
   /usr/local/bin /usr/local/sbin /usr/sbin /sbin $add_bin_paths
   /usr/local/go/bin /usr/local/google_appengine /usr/local/go_appengine
-  $HOME/bin
+  /usr/local/go/bin
+  $HOME/go/bin $HOME/bin
 "
 add_man_paths="/usr/share/man /usr/local/share/man $add_man_paths"
 
@@ -87,7 +88,6 @@ if [ -d "/usr/local/go" ]; then
   export GOBIN GOROOT
 fi
 export GOPATH="$HOME/go"
-export PATH="$PATH:$HOME/go/bin"
 
 # avoid adding duplicate paths
 for dir in `echo $add_bin_paths | xargs`

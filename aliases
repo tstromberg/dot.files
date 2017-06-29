@@ -10,8 +10,7 @@ onmodify() {
 	shift
 	$*
 	while /bin/true; do
-	  clear
-		inotifywait -e modify "${watch_path}" && $*
+		inotifywait -e modify "${watch_path}" && clear && $*
 		sleep 1
 	done
 }
