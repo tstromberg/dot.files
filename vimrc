@@ -69,7 +69,7 @@ set guifont=Source\ Code\ Pro\ 11
 set t_Co=256
 
 " Hide the toolbar.
-set guioptions -=T
+" set guioptions -=T
 
 " Plugin settings ------------------------------------------------------------>
 " Highlight everything in Go.
@@ -78,12 +78,14 @@ let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
-let g:go_info_mode = 'guru'
+let g:go_echo_command_info = 0
+"let g:go_info_mode = 'guru'
 "let g:go_metalinter_command = '~/bin/gometalinter'
-"let g:go_metalinter_autosave = 1
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'g3build', 'g3vet']
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
+let g:go_metalinter_autosave_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
 let g:go_fmt_command = "goimports"
-let g:go_list_type = "quickfix"
+let g:go_list_type = "locationlist"
 
 " Attempt to execute the metalinter on save.
 ":autocmd BufWritePre *.go :GoMetaLinter
@@ -145,7 +147,7 @@ autocmd InsertEnter * match none
 autocmd InsertLeave * match TrailingWhitespace /\s\+$/
 
 " Hide the toolbar.
-set guioptions -=T
+" set guioptions -=T
 
 " Highlight long lines in certain languages...
 au BufWinEnter,WinEnter *.cc,*.h,*.py,*.sh if !exists("w:warning_match_id") | let w:warning_match_id = matchadd('WarningMsg', '\%>80v.\+', -1) | endif
