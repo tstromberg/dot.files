@@ -1,5 +1,6 @@
-# tstromberg-profile 
-# Please keep your modifications in ~/.profile.local or /etc/profile.local
+# tstromberg-profile
+#
+# Keep local modifications in ~/.profile.local or /etc/profile.local
 # to make upgrading easier.
 
 # This should rarely happen.
@@ -19,30 +20,17 @@ case "$os" in
     add_bin_paths="/usr/ucb /usr/platform/`uname -m`/sbin"
     add_man_paths="/usr/man /usr/dt/share/man /usr/openwin/man"
     ;;
-  HP-UX)
-    add_bin_paths="/usr/ccs/bin /usr/contrib/bin"
-    add_man_paths="/usr/contrib/man"
-
-    if [ -r /etc/PATH ]; then
-      add_bin_paths="$add_bin_paths `cat /etc/PATH | sed s/:/' '/g`"
-    fi
-
-    if [ -r /etc/MANPATH ]; then
-      add_man_paths="$add_man_paths `cat /etc/MANPATH | sed s/:/' '/g`"
-    fi
-    ;;
-  FreeBSD)
+  FreeBSD|DragonFlyBSD)
     add_man_paths="/usr/local/man"
     ;;
   OpenBSD)
     PKG_PATH="ftp://ftp.openbsd.org/pub/OpenBSD/${os_ver}/packages/${os_arch}/"
     export PKG_PATH
-    ;;  
+    ;;
   Darwin)
     if [ -x /usr/libexec/path_helper ]; then
     	eval `/usr/libexec/path_helper -s`
     fi
-
     add_bin_paths="/opt/local/bin /opt/local/sbin"
     ;;
   NetBSD)
@@ -56,10 +44,6 @@ case "$os" in
       done
     fi
     ;;
-IRIX|IRIX64)
-    ;;
-AIX)
-  ;;
 esac
 
 for dir in `echo $add_man_paths | xargs`
@@ -72,14 +56,18 @@ do
   fi
 done
 
-# Good paths to add if we see them.
-add_bin_paths="
-  /usr/local/bin /usr/local/sbin /usr/sbin /sbin $add_bin_paths
-  /usr/local/go/bin /usr/local/google_appengine /usr/local/go_appengine
-  /usr/local/go/bin
-  $HOME/go/bin $HOME/bin
-"
-add_man_paths="/usr/share/man /usr/local/share/man $add_man_paths"
+add_bin_paths="/usr/local/bin /usr/local/sbin /usr/sbin /sbin $add_bin_paths /usr/local/go/bin"
+
+for dir in `echo $add_bin_paths | xargs`
+do
+  if [ -d "$dir" -a -x "$dir" -a ! -L "$dir" ]; then
+    # This is a very strange way to do substring searches in ksh
+    case "$PATH" in
+      (*$dir*) ;;
+      (*) PATH="$PATH:$dir"
+    esac
+  fi
+done
 
 ### Application Settings ##########################################################
 if [ -d "/usr/local/go" ]; then
@@ -87,7 +75,17 @@ if [ -d "/usr/local/go" ]; then
   GOBIN=$GOROOT/bin
   export GOBIN GOROOT
 fi
+
 export GOPATH="$HOME/go"
+
+# Prepend our own binaries to take precedence over system ones
+if [ -d "$HOME/bin" ]; then
+  PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/go/bin" ]; then
+  PATH="$HOME/go/bin:$PATH"
+fi
 
 # avoid adding duplicate paths
 for dir in `echo $add_bin_paths | xargs`
@@ -100,7 +98,6 @@ do
     esac
   fi
 done
-
 
 # Find a good default editor and pager #####################
 vi=""
@@ -202,9 +199,3 @@ export EDITOR MANPATH PATH PAGER TERM
 
 # Be very paranoid about shell expansion
 #set -o nounset
-
-
-# Setting PATH for MacPython 2.4
-# The orginal version is saved in .profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
-export PATH
