@@ -10,6 +10,8 @@
 _obj
 _test
 backup
+bundle
+
 
 # Architecture specific extensions/prefixes
 *.[568vq]
