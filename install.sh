@@ -6,7 +6,13 @@ files="`ls | egrep -v "README|install.sh"` zprofile"
 for file in $files
 do
   target="`pwd`/$file"
-  link="$HOME/.$file"
+  link=$(echo $HOME/.$file | sed s/__/\\//g)
+
+  if [ "$file" = "tilix.conf" ]; then
+    echo "Loading tilix.conf ..."
+    dconf load /com/gexperts/Tilix/ < tilix.conf
+    continue
+  fi
 
   # This is a special case.
   if [ "$file" = "zprofile" ]; then

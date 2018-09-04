@@ -5,15 +5,20 @@ start=$(pwd)
 git pull
 
 sudo apt install -y \
-  i3 \
-  i3status \
-  i3blocks \
-  tilix \
-  fonts-open-sans \
-  fonts-inconsolata \
   code \
-  zsh \
-  vim-gnome
+  fonts-inconsolata \
+  fonts-open-sans \
+  i3 \
+  i3blocks \
+  i3status \
+  tilix \
+  vim-gnome \
+  xautolock \
+  zsh
+
+# nice to haves
+sudo apt install -y \
+  xscreensaver-screensaver-bsod
 
 if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
   git clone --depth 1 --branch release \
