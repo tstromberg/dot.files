@@ -13,6 +13,7 @@ sudo apt install -y \
   i3blocks \
   i3status \
   tilix \
+  workrave \
   vim-gnome \
   xautolock \
   zsh
