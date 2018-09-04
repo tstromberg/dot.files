@@ -1,0 +1,7 @@
+{
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": ["-E", "golint,interfacer,unconvert,dupl,goconst,gocyclo,megacheck,depguard,misspell,unparam,nakedret,prealloc"],
+    "editor.fontFamily": "Source Code Pro",
+    "git.autofetch": true,
+    "workbench.activityBar.visible": true,
+}

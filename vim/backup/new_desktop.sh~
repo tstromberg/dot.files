@@ -28,7 +28,7 @@ if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
   fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
 fi
 
-if [[ ! -d /usr/lib/google-golang && ! -d /usr/local/go ]]; then
+if [[ ! -d /usr/lib/google-golang_ && ! -d /usr/local/go ]]; then
   sudo mkdir -p /usr/local/go
   sudo chown $USER /usr/local/go
   goarch=`echo "$(uname)-$(uname -m)" | tr "[A-Z]" "[a-z]" | sed s/x86_/amd/g`

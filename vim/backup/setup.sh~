@@ -1,0 +1,32 @@
+#!/bin/sh
+start=$(pwd)
+sudo apt install -y \
+  i3 \
+  i3status \
+  i3blocks \
+  tilix \
+  fonts-open-sans \
+  fonts-inconsolata \
+  code
+
+if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
+  git clone --depth 1 --branch release \
+    https://github.com/adobe-fonts/source-code-pro.git \
+    ~/.fonts/adobe-fonts/source-code-pro
+fi
+
+fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
+
+if [[ ! -d "$HOME/src/dot.files" ]]; then
+  mkdir -p ~/src
+  git clone https://github.com/tstromberg/dot.files
+fi
+
+cd $HOME/src/dot.files && git pull && ./install.sh
+
+test -d $HOME/.vim/bundle/Vundle.git \
+  || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+
+
+
