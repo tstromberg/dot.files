@@ -12,6 +12,7 @@ _test
 backup
 bundle
 cache
+sessions
 
 # Architecture specific extensions/prefixes
 *.[568vq]
