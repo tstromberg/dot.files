@@ -3,6 +3,9 @@
 *.a
 *.so
 
+# backups
+*~
+
 # Folders
 _obj
 _test
