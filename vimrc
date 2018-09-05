@@ -95,8 +95,10 @@ autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " Automatic session saving.
+let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_autosave_periodic = 5
+
 
 " List buffers at the top.
 let g:airline#extensions#tabline#enabled = 1

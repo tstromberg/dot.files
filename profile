@@ -9,7 +9,7 @@ if [ "$PATH" = "" ]; then
   echo "No path? Setting $PATH"
 fi
 
-add_bin_paths=""
+add_bin_paths="$HOME/google-cloud-sdk/bin"
 add_man_paths=""
 os=`uname`
 
@@ -21,9 +21,10 @@ case "$os" in
     add_man_paths="/usr/man /usr/dt/share/man /usr/openwin/man"
     ;;
   FreeBSD|DragonFlyBSD)
-    add_man_paths="/usr/local/man"
+    add_man_paths="/usr/share/man /usr/local/man"
     ;;
   OpenBSD)
+    add_man_paths="/usr/share/man /usr/local/man"
     PKG_PATH="ftp://ftp.openbsd.org/pub/OpenBSD/${os_ver}/packages/${os_arch}/"
     export PKG_PATH
     ;;

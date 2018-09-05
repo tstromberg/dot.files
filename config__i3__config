@@ -34,6 +34,7 @@ exec dex -ae i3
 exec --no-startup-id xautolock -time 2 -locker "/usr/share/goobuntu-desktop-files/xsecurelock.sh" -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING SCREEN IN 30 SECONDS'"
 # Wallapaper
 exec --no-startup-id feh --bg-fill ~/Pictures/DSCF8200_1.jpg
+exec --no-startup-id workrave
 
 exec $terminal
 exec $browser

@@ -1,4 +1,25 @@
 # $HeadURL: http://svn.stromberg.org/svn/repos/dot.files/aliases $
+git-up() {
+  branch=$(git branch | grep "^*" | cut -d" " -f2) \
+    && git fetch upstream \
+    && git checkout master \
+    && git merge upstream/master \
+    && git checkout $branch \
+    && git merge master
+}
+
+git-cherry() {
+  git fetch --all && git checkout -b cherrypick-$1 && git cherry-pick $1 && git push -u origin cherrypick-$1
+}
+
+b() {
+  if [[ "$1" = "" ]]; then
+    git branch
+    return
+  fi
+  git checkout master
+  git checkout $1 || git checkout -b $1
+}
 
 alias mkdir='mkdir -p'
 alias 'hogs'='du -kx . | sort -rn | more'
@@ -10,7 +31,7 @@ onmodify() {
 	shift
 	$*
 	while /bin/true; do
-		inotifywait -e modify "${watch_path}" && clear && $*
+		inotifywait -r -e modify "${watch_path}" && clear && $*
 		sleep 1
 	done
 }
@@ -72,6 +93,26 @@ loop_until_success() {
   done
   set -o nopipefail
 }
+
+loop_until_success_sleep_900() {
+  exitcode=1
+  tmpfile=$(mktemp)
+  set -o pipefail
+
+  echo "||| Logging to ${tmpfile}"
+  while [[ $exitcode -ne 0 ]]; do
+    echo "||| Running: $@"
+    $@ 2>&1 | tee ${tmpfile}
+    exitcode=$?
+    echo "||| Exited with code: $exitcode"
+    if [[ $exitcode != 0 ]]; then
+      sleep 900;
+    fi
+  done
+  set -o nopipefail
+}
+
+
 
 # overwrite some commands 
 if [ -x /usr/bin/killall -a ! -x /usr/bin/pkill ]; then
