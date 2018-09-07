@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd `dirname $0`
-files="`ls | egrep -v "README|install.sh"` zprofile" 
+files="`ls | egrep -v "README|\.sh"` zprofile"
 
 for file in $files
 do
@@ -20,7 +20,7 @@ do
     target="$HOME/.profile"
   fi
 
-  if [ -f $link ]; then
+  if [ -f $link -o -d $link ]; then
     echo "* Making backup: ${link}.bak"
     mv "$link" "${link}.bak"
   elif [ -L "$link" ]; then

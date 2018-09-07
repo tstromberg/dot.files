@@ -1,4 +1,6 @@
 #!/bin/sh
+set -eux -o pipefail
+
 #
 # Script to configure a brand new desktop machine.
 start=$(pwd)
@@ -47,5 +49,5 @@ test -d $HOME/.vim/bundle/Vundle.git \
   && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
-
+echo "DONE: New Desktop!"
 
