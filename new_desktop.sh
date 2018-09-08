@@ -46,19 +46,18 @@ go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh
 fi
-
+i
 if [[ ! -f "$HOME/.config/fish/conf.d/omf.fish" ]]; then
-   git clone https://github.com/oh-my-fish/oh-my-fish $HOME/src/oh-my-fish
-   cd $HOME/src/oh-my-fish && bin/install --offline
+  mkdir -p $HOME/src
+  git clone https://github.com/oh-my-fish/oh-my-fish $HOME/src/oh-my-fish
+  cd $HOME/src/oh-my-fish && bin/install --offline
 fi
 
 if [[ ! -L "$HOME/.config/fish/functions/fish_prompt.fish" ]]; then
   fish -c "omf install bobthefish"
+  fish -c "omf install gityaw"
 fi
 
 test -d $HOME/.vim/bundle/Vundle.git \
   && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-
-
 
