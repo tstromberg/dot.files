@@ -1,10 +1,14 @@
 #!/bin/sh
 #
 # Script to configure a brand new desktop machine.
+set -x
+
 start=$(pwd)
 git pull
 
 sudo apt install -y \
+  fish \
+  git \
   code \
   curl \
   fonts-inconsolata \
@@ -41,6 +45,15 @@ go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh
+fi
+
+if [[ ! -f "$HOME/.config/fish/conf.d/omf.fish" ]]; then
+   git clone https://github.com/oh-my-fish/oh-my-fish $HOME/src/oh-my-fish
+   cd $HOME/src/oh-my-fish && bin/install --offline
+fi
+
+if [[ ! -L "$HOME/.config/fish/functions/fish_prompt.fish" ]]; then
+  fish -c "omf install bobthefish"
 fi
 
 test -d $HOME/.vim/bundle/Vundle.git \

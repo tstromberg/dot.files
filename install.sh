@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd `dirname $0`
-files="`ls | egrep -v "README|install.sh"` zprofile" 
+files="`ls | egrep -v "README|\.sh"` zprofile"
 
 for file in $files
 do
