@@ -20,7 +20,7 @@ do
     target="$HOME/.profile"
   fi
 
-  if [ -f $link ]; then
+  if [ -f $link -o -d $link ]; then
     echo "* Making backup: ${link}.bak"
     mv "$link" "${link}.bak"
   elif [ -L "$link" ]; then
