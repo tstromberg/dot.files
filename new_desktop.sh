@@ -48,7 +48,7 @@ go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh
 fi
-i
+
 if [[ ! -f "$HOME/.config/fish/conf.d/omf.fish" ]]; then
   mkdir -p $HOME/src
   git clone https://github.com/oh-my-fish/oh-my-fish $HOME/src/oh-my-fish
@@ -60,7 +60,7 @@ if [[ ! -L "$HOME/.config/fish/functions/fish_prompt.fish" ]]; then
   fish -c "omf install gityaw"
 fi
 
-test -d $HOME/.vim/bundle/Vundle.git \
-  && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+test -d $HOME/.vim/bundle/Vundle.vim \
+  || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo "DONE: New Desktop!"
