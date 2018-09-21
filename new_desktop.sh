@@ -43,7 +43,18 @@ if [[ ! -d /usr/lib/google-golang && ! -d /usr/local/go ]]; then
   curl -s $url | tar -C /usr/local -zxvf -
 fi
 
-go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+if [[ ! -f "$HOME/go/bin/golangci-lint" ]]; then
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+fi
+
+if [[ ! -f "$HOME/go/bin/hub" ]]; then
+  go get github.com/github/hub && cd $HOME/src/github.com/github/hub && make install
+fi
+
+mkdir -p ~/bin
+if [[ ! -L "$HOME/bin/git" ]]; then
+  ln -s $HOME/go/bin/hub $HOME/bin/git
+fi
 
 if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh

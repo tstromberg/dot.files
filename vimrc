@@ -12,30 +12,30 @@ set backupdir=~/.vim/backup
 set hidden
 
 set history=200          " Store last 200 commands as history.
-set nocompatible              " be iMproved, required
+set undolevels=200
+set nocompatible         " be iMproved, required
 set incsearch            " Incremental search
 set pastetoggle=<F2>     " hit this on insert when pasting code in
-set undolevels=200
 set showmatch            " Show matching brackets.
 set autowrite            " Save buffers when running GoBuild.
 
-" set hlsearch             " Highlight previous search results
-" set laststatus=2         " enable the status bar
-" set list                 " highlight whitespace
-" set listchars=tab:>.,trail:.,extends:#,nbsp:.
-set ruler                " show the line number on the bar
-"set shiftwidth=2         " number of space characters inserted for indentation
+set hlsearch             " Highlight previous search results
+set laststatus=2         " enable the status bar
+set list                 " highlight whitespace
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+"set ruler                " show the line number on the bar
 "set showcmd              " Show (partial) command in status line.
-"set showmode
-"set smartindent
-"set softtabstop=2        " How many spaces to insert if you hit tab.
-"set tabstop=2            " Viewing a real tab uses two columns.
+set showmode
+set smartindent
 
 "set wildmenu wildmode=longest:full
 set noeb vb t_vb=        " Disable those terrible error bells.
 set mouse=a
 
 syntax on
+
+
+
 
 " Vundle " ------------------------------------------------------------------->
 " https://github.com/gmarik/Vundle.vim
@@ -44,17 +44,22 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 " Other Plugins go here.
 " DISABLED: Using Google specific version.
 "Plugin 'Valloric/YouCompleteMe'
-Plugin 'ap/vim-css-color'     " CSS color highlighting.
-Plugin 'fatih/vim-go'         " Go support
+
+"Plugin 'ap/vim-css-color'     " CSS color highlighting.
+"Plugin 'fatih/vim-go'         " Go support
+
 Plugin 'jiangmiao/auto-pairs' " auto-pairing
 Plugin 'kien/ctrlp.vim'       " Fuzzy Searching
 Plugin 'majutsushi/tagbar'    " Sidebar Outline
+Plugin 'dag/vim-fish'         " fish shell highlighting
 Plugin 'morhetz/gruvbox'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'xolox/vim-misc'    " Session support.
 Plugin 'xolox/vim-session'    " Session support.
 call vundle#end()            " required
@@ -68,6 +73,7 @@ let g:airline_theme='solarized'
 set guifont=Source\ Code\ Pro\ 11
 set t_Co=256
 
+
 " Hide the toolbar.
 " set guioptions -=T
 
@@ -79,8 +85,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_echo_command_info = 0
-"let g:go_info_mode = 'guru'
-"let g:go_metalinter_command = '~/bin/gometalinter'
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
 let g:go_metalinter_autosave_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
@@ -163,8 +167,10 @@ au! BufWritePost .vimrc source %
 au! BufWritePost .vimrc.local source %
 
 " Type-specific overrides ---------------------------------------------------->
-autocmd FileType python setlocal expandtab list
+au FileType python setlocal expandtab list
 au FileType go setlocal tabstop=4 shiftwidth=4 noexpandtab
+au FileType fish setlocal tabstop=4 shiftwidth=4 expandtab list
+
 
 " Import local settings ------------------------------------------------------>
 if filereadable(expand("~/.vimrc.local"))
