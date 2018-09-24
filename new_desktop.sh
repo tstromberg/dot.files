@@ -11,7 +11,6 @@ git pull
 sudo apt install -y \
   fish \
   git \
-  code \
   curl \
   fonts-inconsolata \
   fonts-open-sans \
@@ -25,8 +24,7 @@ sudo apt install -y \
   zsh
 
 # nice to haves
-sudo apt install -y \
-  xscreensaver-screensaver-bsod
+sudo apt install -y code xscreensaver-screensaver-bsod || echo "no code or bsod"
 
 if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
   git clone --depth 1 --branch release \
@@ -53,7 +51,7 @@ fi
 
 mkdir -p ~/bin
 if [[ ! -L "$HOME/bin/git" ]]; then
-  ln -s $HOME/go/bin/hub $HOME/bin/git
+  ln -s $HOME/go/bin/hub $HOME/bin/hub
 fi
 
 if [[ ! -L "$HOME/.zprofile" ]]; then
@@ -71,7 +69,7 @@ if [[ ! -L "$HOME/.config/fish/functions/fish_prompt.fish" ]]; then
   fish -c "omf install gityaw"
 fi
 
-test -d $HOME/.vim/bundle/Vundle.vim \
+test -d $HOME/.vim/bundle/Vundle.vim/.git \
   || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo "DONE: New Desktop!"
