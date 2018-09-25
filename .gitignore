@@ -4,7 +4,7 @@
 *.so
 
 # corp
-*google.com
+*google*
 
 # backups
 *~
