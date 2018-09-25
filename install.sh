@@ -9,25 +9,26 @@ do
   link=$(echo $HOME/.$file | sed s/__/\\//g)
   mkdir -p $(dirname $link)
 
-  if [ "$file" = "tilix.conf" ]; then
-    echo "Loading tilix.conf ..."
-    dconf load /com/gexperts/Tilix/ < tilix.conf
-    continue
+  if [[ -n "${DISPLAY}" ]]; then
+    if [[ "${file}" = "tilix.conf" ]]; then
+      echo "Loading tilix.conf ..."
+      dconf load /com/gexperts/Tilix/ < tilix.conf
+      continue
+    fi
   fi
 
-  # This is a special case.
-  if [ "$file" = "zprofile" ]; then
+  if [[ "${file}" = "zprofile" ]]; then
     target="$HOME/.profile"
   fi
 
-  if [ -f $link -o -d $link ]; then
+  if [[ -f "${link}" && -d "${link}" ]]; then
     echo "* Making backup: ${link}.bak"
     mv "$link" "${link}.bak"
-  elif [ -L "$link" ]; then
+  elif [[ -L "${link}" ]]; then
     echo "* Removing $link symlink"
     rm -f "$link"
   fi
 
   echo "- $target -> $link"
-  ln -s $target $link
+  ln -s "${target}" "${link}"
 done
