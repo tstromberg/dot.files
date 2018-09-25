@@ -1,8 +1,8 @@
 #!/bin/sh
-
 cd `dirname $0`
-files="`ls | egrep -v "README|\.sh"` zprofile"
+mkdir -p "${HOME}/.config"
 
+files="`ls | egrep -v "README|\.sh"` zprofile"
 for file in $files
 do
   target="`pwd`/$file"
