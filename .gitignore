@@ -3,8 +3,14 @@
 *.a
 *.so
 
+# corp
+*google.com
+
 # backups
 *~
+*.swo
+*.swp
+
 
 # Folders
 _obj
