@@ -1,34 +1,51 @@
 #!/bin/sh
+set -euf
 cd `dirname $0`
 mkdir -p "${HOME}/.config"
 
-files="`ls | egrep -v "README|\.sh"` zprofile"
-for file in $files
-do
-  target="`pwd`/$file"
-  link=$(echo $HOME/.$file | sed s/__/\\//g)
-  mkdir -p $(dirname $link)
+function dconf_update {
+  local subpath=$1
+  local f=$2
 
-  if [[ -n "${DISPLAY}" ]]; then
-    if [[ "${file}" = "tilix.conf" ]]; then
-      echo "Loading tilix.conf ..."
-      dconf load /com/gexperts/Tilix/ < tilix.conf
+  if [ -z "${DISPLAY}" ]; then
+    echo "[---] ${f}"
+    return
+  fi
+  dump=$(mktemp -q)
+  dconf dump ${subpath} > "${dump}"
+  if ! diff "${dump}" ${f}; then
+    echo "[dcf] ${f}"
+    dconf load ${subpath} < ${f}
+  fi
+}
+
+fs="`ls | egrep -v "README|\.sh"` zprofile"
+for f in $fs
+do
+  if [ "${f}" = "tilix.conf" ]; then
+    dconf_update /com/gexperts/Tilix/ "${f}"
+  fi
+
+  full="$(pwd)/$f"
+  if [ "${f}" = "zprofile" ]; then
+    full="$(pwd)/profile"
+  fi
+  ln=$(echo $HOME/.$f | sed s/__/\\//g)
+  mkdir -p $(dirname $ln)
+
+  if [[ -L "${ln}" ]]; then
+    got=$(realpath ${ln})
+    if [ "${got}" = "${full}" ]; then
+      echo "[ ✔ ] ${ln}"
       continue
     fi
+    echo "[rm ] $ln -> ${got}"
+    rm -f "$ln"
+  elif [ -f "${ln}" -o -d "${ln}" ]; then
+    echo "[mv ] ${ln} -> ${ln}.bak"
+    mv "${ln}" "${ln}.bak"
   fi
 
-  if [[ "${file}" = "zprofile" ]]; then
-    target="$HOME/.profile"
-  fi
-
-  if [[ -f "${link}" && -d "${link}" ]]; then
-    echo "* Making backup: ${link}.bak"
-    mv "$link" "${link}.bak"
-  elif [[ -L "${link}" ]]; then
-    echo "* Removing $link symlink"
-    rm -f "$link"
-  fi
-
-  echo "- $target -> $link"
-  ln -s "${target}" "${link}"
+  echo "[ln ] $ln -> ${full}"
+  ln -s "${full}" "${ln}"
 done
