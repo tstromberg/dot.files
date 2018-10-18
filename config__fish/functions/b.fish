@@ -5,7 +5,7 @@ function b -d "git-brancher" -a name
   end
 
   git checkout master >/dev/null
-  git checkout $name; or git checkout -b $name
+  git checkout $name; or git checkout -b $name; and git push --set-upstream origin directives
 end
 
 

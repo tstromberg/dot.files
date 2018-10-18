@@ -1,7 +1,15 @@
 {
+    "shellcheck.executablePath": "/usr/local/google/home/tstromberg/bin/shellcheck",
     "go.lintTool": "golangci-lint",
-    "go.lintFlags": ["-E", "golint,interfacer,unconvert,dupl,goconst,gocyclo,megacheck,depguard,misspell,unparam,nakedret,prealloc"],
+    "go.lintFlags": [
+        "--enable-all",
+    ],
     "editor.fontFamily": "Source Code Pro",
     "git.autofetch": true,
     "workbench.activityBar.visible": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 500,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
 }

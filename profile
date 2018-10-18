@@ -4,9 +4,9 @@
 # to make upgrading easier.
 
 # Start fish if installed.
-if echo $- | grep -q i; then
-  test -x /usr/bin/fish && exec env SHELL=/usr/bin/fish /usr/bin/fish -i
-fi
+#if echo $- | grep -q i; then
+  #test -x /usr/bin/fish && exec env SHELL=/usr/bin/fish /usr/bin/fish -i
+#fi
 
 # This should rarely happen.
 if [ "$PATH" = "" ]; then

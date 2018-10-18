@@ -17,6 +17,7 @@ sudo apt install -y \
   i3 \
   i3blocks \
   i3status \
+  inotify-tools \
   tilix \
   workrave \
   vim-gnome \
@@ -43,6 +44,10 @@ fi
 
 if [[ ! -f "$HOME/go/bin/golangci-lint" ]]; then
   go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+fi
+
+if [[ ! -f "$HOME/go/bin/goreturns" ]]; then
+  go get sourcegraph.com/sqs/goreturns
 fi
 
 if [[ ! -f "$HOME/go/bin/hub" ]]; then
