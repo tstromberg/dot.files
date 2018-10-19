@@ -4,6 +4,6 @@ function ino -d "inode watcher" -a path
   while true
     sleep 0.1
     eval $command
-    inotifywait -q -r -e modify -e create $path
+    inotifywait -q -r -e modify -e create -e delete -e delete_self -e moved_to -e moved_from $path
   end
 end
