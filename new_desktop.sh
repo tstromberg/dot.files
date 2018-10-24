@@ -1,37 +1,13 @@
 #!/bin/sh
 set -eux -o pipefail
 
-#
-# Script to configure a brand new desktop machine.
-set -x
-
 start=$(pwd)
+os=$(uname)
+
 git pull
 
-sudo apt install -y \
-  fish \
-  git \
-  curl \
-  fonts-inconsolata \
-  fonts-open-sans \
-  i3 \
-  i3blocks \
-  i3status \
-  inotify-tools \
-  tilix \
-  workrave \
-  vim-gnome \
-  xautolock \
-  zsh
-
-# nice to haves
-sudo apt install -y code xscreensaver-screensaver-bsod || echo "no code or bsod"
-
-if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
-  git clone --depth 1 --branch release \
-    https://github.com/adobe-fonts/source-code-pro.git \
-    ~/.fonts/adobe-fonts/source-code-pro
-  fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
+if [[ -x "new_${os}.sh" ]]; then
+  . ./new_${os}.sh
 fi
 
 if [[ ! -d /usr/lib/google-golang && ! -d /usr/local/go ]]; then
@@ -41,21 +17,22 @@ if [[ ! -d /usr/lib/google-golang && ! -d /usr/local/go ]]; then
   url=$(curl -s https://golang.org/dl/ |  grep -o "https://.*$goarch.tar.gz\"" | sed s/\"// | head -n1)
   curl -s $url | tar -C /usr/local -zxvf -
 fi
+export PATH=/usr/local/go/bin:$PATH
 
-if [[ ! -f "$HOME/go/bin/golangci-lint" ]]; then
+if [[ ! -x "$HOME/go/bin/golangci-lint" ]]; then
   go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 fi
 
-if [[ ! -f "$HOME/go/bin/goreturns" ]]; then
+if [[ ! -x "$HOME/go/bin/goreturns" ]]; then
   go get sourcegraph.com/sqs/goreturns
 fi
 
-if [[ ! -f "$HOME/go/bin/hub" ]]; then
+if [[ ! -x "$HOME/go/bin/hub" ]]; then
   go get github.com/github/hub && cd $HOME/src/github.com/github/hub && make install
 fi
 
 mkdir -p ~/bin
-if [[ ! -L "$HOME/bin/git" ]]; then
+if [[ ! -L "$HOME/bin/hub" ]]; then
   ln -s $HOME/go/bin/hub $HOME/bin/hub
 fi
 
@@ -63,7 +40,7 @@ if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh
 fi
 
-if [[ ! -f "$HOME/.config/fish/conf.d/omf.fish" ]]; then
+if [[ ! -f "$HOME/.config/fish/conf.d/omf.fish" || ! -d $HOME/src/oh-my-fish ]]; then
   mkdir -p $HOME/src
   git clone https://github.com/oh-my-fish/oh-my-fish $HOME/src/oh-my-fish
   cd $HOME/src/oh-my-fish && bin/install --offline
