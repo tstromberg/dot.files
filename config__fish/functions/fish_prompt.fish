@@ -1,1 +1,1 @@
-/usr/local/google/home/tstromberg/.local/share/omf/themes/bobthefish/fish_prompt.fish
+/Users/tstromberg/.local/share/omf/themes/bobthefish/fish_prompt.fish

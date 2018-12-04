@@ -23,7 +23,9 @@ fs="`ls | egrep -v "README|\.sh"` zprofile"
 for f in $fs
 do
   if [ "${f}" = "tilix.conf" ]; then
-    dconf_update /com/gexperts/Tilix/ "${f}"
+    if [[ "$(uname)" = "Linux" ]]; then 
+      dconf_update /com/gexperts/Tilix/ "${f}"
+    fi
   fi
 
   full="$(pwd)/$f"
@@ -34,7 +36,7 @@ do
   mkdir -p $(dirname $ln)
 
   if [[ -L "${ln}" ]]; then
-    got=$(realpath ${ln})
+    got=$(readlink ${ln})
     if [ "${got}" = "${full}" ]; then
       echo "[ ✔ ] ${ln}"
       continue
