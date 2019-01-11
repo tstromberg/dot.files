@@ -1,10 +1,12 @@
 
 sudo apt install -y \
+  cmake \
   fish \
   git \
   curl \
   fonts-inconsolata \
   fonts-open-sans \
+  fonts-powerline \
   i3 \
   i3blocks \
   i3status \
