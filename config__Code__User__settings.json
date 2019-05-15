@@ -1,10 +1,14 @@
 {
     "shellcheck.executablePath": "/usr/local/google/home/tstromberg/bin/shellcheck",
+    "go.useLanguageServer": true,
     "go.lintTool": "golangci-lint",
     "go.lintFlags": [
-        "--enable-all",
+        "--enable",
+        "goimports,gocritic,golint,gocyclo,interfacer,misspell,nakedret,stylecheck,unconvert,unparam",
+        "--exclude",
+        "Using variable on range scope.*in function literal",
     ],
-    "go.formatTool": "goreturns",
+    "go.formatTool": "goimports",
     "editor.fontFamily": "Source Code Pro",
     "git.autofetch": true,
     "workbench.activityBar.visible": true,
