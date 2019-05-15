@@ -5,6 +5,6 @@ function ino -d "inode watcher" -a path
     sleep 0.1
     clear
     eval $command
-    inotifywait -q -r -e modify -e create -e delete -e delete_self -e moved_to -e moved_from $path
+    inotifywait --exclude .git -q -r -e modify -e create -e delete -e delete_self -e moved_to -e moved_from $path
   end
 end

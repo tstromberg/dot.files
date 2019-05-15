@@ -11,12 +11,14 @@ function up
     return
   end
 
+  git fetch
+  git pull
+
   echo "merging upstream into $branch"
   git fetch upstream; \
     and git checkout master; \
     and git merge upstream/master; \
     and git checkout $branch; \
     and git merge master
- 
 end
 

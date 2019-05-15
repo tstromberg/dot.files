@@ -88,10 +88,10 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_echo_command_info = 0
+
+let g:go_metalinter_command = 'golangci-lint'
 let g:go_metalinter_autosave = 1
-let g:go_metalinter_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
-let g:go_metalinter_autosave_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
-" let g:go_fmt_command = "goreturns"
+let g:go_fmt_command = "goimports"
 let g:go_list_type = "locationlist"
 
 " Attempt to execute the metalinter on save.
