@@ -13,7 +13,7 @@ sudo apt install -y \
   inotify-tools \
   tilix \
   workrave \
-  vim-gnome \
+  vim-gtk3 \
   xautolock \
   zsh
 
