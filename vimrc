@@ -88,10 +88,10 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_echo_command_info = 0
+
+let g:go_metalinter_command = 'golangci-lint'
 let g:go_metalinter_autosave = 1
-let g:go_metalinter_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
-let g:go_metalinter_autosave_enabled = ['vet','golint','errcheck','megacheck','misspell','unparam']
-" let g:go_fmt_command = "goreturns"
+let g:go_fmt_command = "goimports"
 let g:go_list_type = "locationlist"
 
 " Attempt to execute the metalinter on save.
@@ -171,9 +171,15 @@ au! BufWritePost .vimrc.local source %
 
 " Type-specific overrides ---------------------------------------------------->
 au FileType python setlocal expandtab list
-au FileType go setlocal tabstop=4 shiftwidth=4 noexpandtab
+au FileType go setlocal tabstop=4 shiftwidth=4 noexpandtab listchars=trail:. nolist
 au FileType fish setlocal tabstop=4 shiftwidth=4 expandtab list
 au FileType sh setlocal tabstop=2 shiftwidth=2 expandtab list
+au Filetype html setlocal ts=2 sw=2 expandtab
+au Filetype ruby setlocal ts=2 sw=2 expandtab
+au Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+au BufRead,BufNewFile *.tmpl set filetype=html
 
 
 " Import local settings ------------------------------------------------------>
