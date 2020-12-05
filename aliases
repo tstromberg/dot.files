@@ -57,20 +57,20 @@ loop_until_failure() {
   exitcode=0
   tmpfile=$(mktemp)
   set -o pipefail
+  run=0
 
   echo "||| Logging to ${tmpfile}"
   while [[ $exitcode -eq 0 ]]; do
-    echo "||| Running: $@"
+    ((run+=1))
+    echo "||| Run #${run}: $@"
     $@ 2>&1 | tee ${tmpfile}
     exitcode=$?
     echo "||| Exited with code: $exitcode"
     if [[ $exitcode == 0 ]]; then
-      echo "||| Sleeping for 2 seconds ..."
-      sleep 2;
+      echo "||| Sleeping for 1 seconds ..."
+      sleep 1;
     else
       err=$(echo $@ | sed s/" "/_/g | cut -c1-80)
-      mail -s "error=$err" ${USERNAME}@google.com < ${tmpfile}
-      echo "Mailed to ${USERNAME} ..."
     fi
   done
   set -o nopipefail
