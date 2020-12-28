@@ -19,22 +19,9 @@ if [[ ! -d /usr/lib/google-golang && ! -d /usr/local/go ]]; then
 fi
 export PATH=/usr/local/go/bin:$PATH
 
-if [[ ! -x "$HOME/go/bin/golangci-lint" ]]; then
-  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-fi
-
-if [[ ! -x "$HOME/go/bin/goreturns" ]]; then
-  go get sourcegraph.com/sqs/goreturns
-fi
-
-if [[ ! -x "$HOME/go/bin/hub" ]]; then
-  go get github.com/github/hub && cd $HOME/src/github.com/github/hub && make install
-fi
-
-mkdir -p ~/bin
-if [[ ! -L "$HOME/bin/hub" ]]; then
-  ln -s $HOME/go/bin/hub $HOME/bin/hub
-fi
+#if [[ ! -x "$HOME/go/bin/golangci-lint" ]]; then
+#  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+#fi
 
 if [[ ! -L "$HOME/.zprofile" ]]; then
   ./install.sh
