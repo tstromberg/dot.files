@@ -20,7 +20,7 @@ sudo apt install -y \
 # nice to haves
 sudo apt install -y code xscreensaver-screensaver-bsod || echo "no code or bsod"
 
-if [[ ! -d "$HOME/.fonts/adobe-fonts" ]]; then
+if [ ! -d "$HOME/.fonts/adobe-fonts" ]; then
   git clone --depth 1 --branch release \
     https://github.com/adobe-fonts/source-code-pro.git \
     ~/.fonts/adobe-fonts/source-code-pro
