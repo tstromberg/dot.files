@@ -33,7 +33,7 @@ set noeb vb t_vb=        " Disable those terrible error bells.
 set mouse=a
 
 " workaround shell issues
-set shell=/bin/zsh
+" set shell=/bin/zsh
 
 syntax on
 

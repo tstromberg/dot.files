@@ -32,7 +32,7 @@ case "$os" in
     if [ -x /usr/libexec/path_helper ]; then
     	eval `/usr/libexec/path_helper -s`
     fi
-    add_bin_paths="/opt/local/bin /opt/local/sbin"
+    add_bin_paths="/opt/local/bin /opt/local/sbin /opt/homebrew/bin"
     ;;
   NetBSD)
     add_bin_paths="/usr/pkg/bin /usr/pkg/sbin"

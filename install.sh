@@ -52,7 +52,7 @@ do
   ln -s "${full}" "${ln}"
 done
 
-if [[ -e "$HOME/.vim/bundle/Vundle.vim" ]]; then
+if [ -e "$HOME/.vim/bundle/Vundle.vim" ]; then
   cd $HOME/.vim/bundle/Vundle.vim
   git fetch
   git pull
