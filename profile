@@ -200,3 +200,4 @@ export EDITOR MANPATH PATH PAGER TERM
 
 # Be very paranoid about shell expansion
 #set -o nounset
+if [ -e /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

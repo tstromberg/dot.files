@@ -14,11 +14,14 @@ function up
   git fetch
   git pull
 
-  echo "merging upstream into $branch"
+  set my_main (git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)
+  set up_main (git remote show upstream | grep HEAD | cut -d: -f2 | xargs)
+
+  echo "merging upstream/$up_main into $branch/$my_main"
   git fetch upstream; \
-    and git checkout master; \
-    and git merge upstream/master; \
+    and git checkout $my_main; \
+    and git merge upstream/$up_main; \
     and git checkout $branch; \
-    and git merge master
+    and git merge $my_main
 end
 
