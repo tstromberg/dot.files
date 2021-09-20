@@ -23,17 +23,17 @@ set hlsearch             " Highlight previous search results
 set laststatus=2         " enable the status bar
 set list                 " highlight whitespace
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-"set ruler                " show the line number on the bar
-"set showcmd              " Show (partial) command in status line.
+set ruler                " show the line number on the bar
+set showcmd              " Show (partial) command in status line.
 set showmode
 set smartindent
 
-"set wildmenu wildmode=longest:full
+set wildmenu wildmode=longest:full
 set noeb vb t_vb=        " Disable those terrible error bells.
 set mouse=a
 
 " workaround shell issues
-set shell=/bin/zsh
+"set shell=/bin/zsh
 
 syntax on
 
@@ -61,7 +61,9 @@ Plugin 'jiangmiao/auto-pairs' " auto-pairing
 Plugin 'kien/ctrlp.vim'       " Fuzzy Searching
 Plugin 'majutsushi/tagbar'    " Sidebar Outline
 Plugin 'dag/vim-fish'         " fish shell highlighting
-Plugin 'morhetz/gruvbox'
+"Plugin 'morhetz/gruvbox'
+Plugin 'tomasiser/vim-code-dark'
+
 
 Plugin 'xolox/vim-misc'    " Session support.
 Plugin 'xolox/vim-session'    " Session support.
@@ -71,8 +73,11 @@ filetype plugin indent on    " required
 
 " UI ------------------------------------------------------------------------->
 set background=dark
-colorscheme gruvbox
-let g:airline_theme='solarized'
+"colorscheme gruvbox
+colorscheme codedark
+"let g:airline_theme='solarized'
+let g:airline_theme = 'codedark'
+
 set guifont=Source\ Code\ Pro\ 11
 set t_Co=256
 
@@ -89,9 +94,12 @@ let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_echo_command_info = 0
 
+let g:go_fmt_command="gopls"
+let g:go_gopls_gofumpt=1
+
 let g:go_metalinter_command = 'golangci-lint'
 let g:go_metalinter_autosave = 1
-let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "goimports"
 let g:go_list_type = "locationlist"
 
 " Attempt to execute the metalinter on save.
@@ -139,7 +147,7 @@ nnoremap <leader>a :cclose<CR>
 
 " UI ------------------------------------------------------------------------->
 set background=dark
-colorscheme gruvbox
+"colorscheme gruvbox
 " let g:airline_theme='papercolor'
 " let g:lightline = { 'colorscheme': 'PaperColor' }
 set guifont=Source\ Code\ Pro\ 9

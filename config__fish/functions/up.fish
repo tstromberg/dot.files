@@ -20,5 +20,10 @@ function up
     and git merge upstream/master; \
     and git checkout $branch; \
     and git merge master
+  git fetch upstream; \
+    and git checkout main; \
+    and git merge upstream/main; \
+    and git checkout $branch; \
+    and git merge main
 end
 
