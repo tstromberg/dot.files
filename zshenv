@@ -168,3 +168,4 @@ if [ "$valid_term" ]; then
   }
 fi
 
+if [ -e /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

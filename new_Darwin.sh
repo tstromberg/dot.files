@@ -1,5 +1,6 @@
 arch=$(uname -m)
-if [[ "${arch}" = "arm64" ]]; then
+
+if [ "${arch}" = "arm64" ]; then
   brewroot="/opt/homebrew"
   brewbin="/opt/homebrew/bin"
   brewopts="--build-from-source"
@@ -9,10 +10,16 @@ else
   brewopts=""
 fi
 
-if [[ ! -d "${brewroot}" ]]; then
+if [ ! -x "${brewbin}/brew" ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-test -x $brewbin/fish -o /usr/local/bin/fish || brew install ${brewopts} fish
-#test -x $brewbin/shellcheck || brew install ${brewopts} shellcheck
-#test -f "/Users/tstromberg/Library/Fonts/Sauce Code Powerline Regular.otf" || brew cask install font-source-code-pro-for-powerline
+test -x $brewbin/fish -o -x /usr/local/bin/fish || brew install ${brewopts} fish
+test -x $brewbin/shellcheck || brew install ${brewopts} shellcheck
+
+if [ ! -f "/Users/tstromberg/Library/Fonts/Source Code Pro for Powerline.otf" ]; then
+  cd /tmp
+  git clone https://github.com/powerline/fonts.git --depth=1
+  cd fonts
+  ./install.sh
+fi

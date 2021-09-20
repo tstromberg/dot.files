@@ -32,7 +32,7 @@ case "$os" in
     if [ -x /usr/libexec/path_helper ]; then
     	eval `/usr/libexec/path_helper -s`
     fi
-    add_bin_paths="/opt/local/bin /opt/local/sbin"
+    add_bin_paths="/opt/local/bin /opt/local/sbin /opt/homebrew/bin"
     ;;
   NetBSD)
     add_bin_paths="/usr/pkg/bin /usr/pkg/sbin"
@@ -200,3 +200,4 @@ export EDITOR MANPATH PATH PAGER TERM
 
 # Be very paranoid about shell expansion
 #set -o nounset
+if [ -e /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/tstromberg/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

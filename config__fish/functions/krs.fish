@@ -1,0 +1,5 @@
+function krs -d "kubernetes resources, shortened" -a namespace
+  kubectl get alertmanagerconfigs,alertmanagers,apiservices,bindings,clusterrolebindings,clusterroles,componentstatuses,configmaps,controllerrevisions,cronjobs,csidrivers,csinodes,customresourcedefinitions,daemonsets,deployments,endpoints,endpointslices,events,flowschemas,horizontalpodautoscalers,ingressclasses,ingresses,issuers,jobs,leases,limitranges,localsubjectaccessreviews,mutatingwebhookconfigurations,networkpolicies,ns1,objectbucketclaims,objectbuckets,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,podmonitors,pods,podsecuritypolicies,podtemplates,priorityclasses,prioritylevelconfigurations,probes,prometheuses,prometheusrules,replicasets,replicationcontrollers,resourcequotas,runtimeclasses,selfsubjectaccessreviews,selfsubjectrulesreviews,servicemonitors,services,statefulsets,storageclasses,subjectaccessreviews,thanosrulers,tokenreviews,validatingwebhookconfigurations,volumeattachments,volumes -n $namespace 2>/dev/null
+end
+
+
