@@ -52,11 +52,5 @@ do
   ln -s "${full}" "${ln}"
 done
 
-if [ -e "$HOME/.vim/bundle/Vundle.vim" ]; then
-  cd $HOME/.vim/bundle/Vundle.vim
-  git fetch
-  git pull
-else
-  git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-fi
+
 

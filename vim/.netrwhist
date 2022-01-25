@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
-let g:netrw_dirhist_4='/Users/t/src/campwiz/pkg/campwiz'
-let g:netrw_dirhist_3='/Users/t/src/campwiz/pkg'
-let g:netrw_dirhist_2='/Users/t/src/campwiz/pkg/metasrc'
-let g:netrw_dirhist_1='/Users/t'

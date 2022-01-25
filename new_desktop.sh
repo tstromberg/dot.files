@@ -1,28 +1,35 @@
-#!/bin/sh
+!/bin/sh
 set -eux
 # -o pipefail
 
 start=$(pwd)
 os=$(uname)
+arch=$(uname -m)
 
 git pull
 
-if [ ! -d /usr/local/go ]; then
-  sudo mkdir -p /usr/local/go
-  sudo chown $USER /usr/local/go
-fi
+if [ "${os}" = "OpenBSD" ]; then
+  if [ ! -x /usr/local/bin/go ]; then
+	  doas pkg_add go
+  fi
+else
+	if [ ! -d /usr/local/go ]; then
+	  doas mkdir -p /usr/local/go
+	  doas chown $USER /usr/local/go
+	fi
 
-if [ ! -x /usr/local/go/bin/go ]; then
-  goarch=`echo "$(uname)-$(uname -m)" | tr "[A-Z]" "[a-z]" | sed s/x86_/amd/g`
-  relpath=$(curl -s https://golang.org/dl/ |  grep -o "/.*$goarch.tar.gz\"" | sed s/\"// | head -n1)
-  curl -Ls "https://golang.org${relpath}" | tar -C /usr/local -zxvf -
+	if [ ! -x /usr/local/go/bin/go ]; then
+	  goarch=`echo "${os}-${arch}" | tr "[A-Z]" "[a-z]" | sed s/x86_/amd/g`
+	  relpath=$(curl -s https://golang.org/dl/ |  grep -o "/.*$goarch.tar.gz\"" | sed s/\"// | head -n1)
+	  curl -Ls "https://golang.org${relpath}" | tar -C /usr/local -zxvf -
+	fi
 fi
 
 export PATH=/usr/local/go/bin:$PATH
 
-#if [ ! -x "$HOME/go/bin/golangci-lint" ]; then
-#  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-#fi
+if [ ! -x "$HOME/go/bin/golangci-lint" ]; then
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+fi
 
 if [ ! -L "$HOME/.zprofile" ]; then
   ./install.sh
@@ -46,9 +53,8 @@ if [ ! -L "$HOME/.config/fish/functions/fish_prompt.fish" ]; then
   fish -c "omf install gityaw"
 fi
 
-test -d $HOME/.vim/bundle/Vundle.vim/.git \
-  || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-
+if [ ! -e "$HOME/.local/share/nvim/site/autoload/plug.vim" ]; then
+ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 echo "DONE: New Desktop!"
