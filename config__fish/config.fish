@@ -11,3 +11,6 @@ set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
 set -gx HOMEBREW_REPOSITORY "/opt/homebrew";
 set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/opt/homebrew/share/man" $MANPATH;
 set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/opt/homebrew/share/info" $INFOPATH;
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/t/google-cloud-sdk/path.fish.inc' ]; . '/Users/t/google-cloud-sdk/path.fish.inc'; end
