@@ -58,8 +58,15 @@ https://updates.signal.org/android/Signal-Android-website-prod-universal-release
 https://storage.evozi.com/apk/dl/16/09/04/com.garmin.android.apps.connectmobile_5519.apk
 https://storage.evozi.com/apk/dl/16/09/07/com.fujifilm_dsc.app.remoteshooter_29.apk
 https://storage.evozi.com/apk/dl/16/09/04/com.google.android.keep_214810140.apk
-https://www.apkmirror.com/wp-content/uploads/2021/12/65/61af968ea9b62/com.google.android.apps.chromecast.app_2.47.1.10-24701100_minAPI23(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk?verify=1652403422-H1no4xuB1mWvwHcIrJLQj5GB7BiBw9yHOm39H6J8O4U
 "
+
+# If you need Google Home support, add:
+# https://www.apkmirror.com/wp-content/uploads/2021/12/65/61af968ea9b62/com.google.android.apps.chromecast.app_2.47.1.10-24701100_minAPI23(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk?verify=1652403422-H1no4xuB1mWvwHcIrJLQj5GB7BiBw9yHOm39H6J8O4U
+#
+# For registering new Google home devices, you may need to enable Google:
+#
+# adb shell enable install-existing com.google.android.googlequicksearchbox --user 0
+# adb shell pm enable com.google.android.googlequicksearchbox --user 0
 
 for a in $apps; do
   local="$(basename $(echo $a | cut -d? -f1))"
