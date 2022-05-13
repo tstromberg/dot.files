@@ -3,7 +3,7 @@
 " Use Ctrl-P more often.
 
 " General settings. ---------------------------------------------------------->
-"set autochdir            " set working directory to match the current file
+set autochdir            " set working directory to match the current file
 set backup
 set backupdir=~/.vim/backup
 
@@ -11,6 +11,7 @@ set backupdir=~/.vim/backup
 " This is almost a must if you wish to use buffers in this way.
 set hidden
 
+set clipboard+=unnamedplus
 set history=200          " Store last 200 commands as history.
 set undolevels=200
 set nocompatible         " be iMproved, required
@@ -103,7 +104,7 @@ let g:go_jump_to_error = 0
 
 " run go imports on file save
 let g:go_fmt_command="gopls"
-let g:go_gopls_gofumpt=1
+let g:go_gopls_gofumpt=0
 
 " automatically highlight variable your cursor is on
 let g:go_auto_sameids = 0
@@ -223,6 +224,8 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
