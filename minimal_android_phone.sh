@@ -13,6 +13,7 @@
 #   - Google Chrome / Chromium Web Browsers (but not the webview)
 #   - Google Play Store
 #   - Google Maps
+#   - Gmail
 #   - Verizon apps
 #   - Wellbeing
 #   - Audio Recorder
