@@ -19,7 +19,9 @@ test -x $brewbin/shellcheck || brew install ${brewopts} shellcheck
 
 if [ ! -f "/Users/tstromberg/Library/Fonts/Source Code Pro for Powerline.otf" ]; then
   cd /tmp
-  git clone https://github.com/powerline/fonts.git --depth=1
+  if [ ! -f "/tmp/fonts/install.sh" ]; then
+    git clone https://github.com/powerline/fonts.git --depth=1
+  fi
   cd fonts
   ./install.sh
 fi
