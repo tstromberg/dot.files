@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 set -eux
 # -o pipefail
 
@@ -8,10 +8,12 @@ arch=$(uname -m)
 
 git pull
 
-
-if [ ! -x "$HOME/go/bin/golangci-lint" ]; then
-  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+if [ -x /usr/bin/doas ]; then
+  SUDO=doas
+else
+  SUDO=sudo
 fi
+export SUDO
 
 if [ ! -L "$HOME/.zprofile" ]; then
   ./install.sh
@@ -26,7 +28,11 @@ if [ -x "new_${os}.sh" ]; then
   . ./new_${os}.sh
 fi
 
-if [ ! -f "$HOME/.config/fish/conf.d/omf.fish" ]; then
+if [ ! -x "$HOME/go/bin/golangci-lint" ]; then
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+fi
+
+if [ ! -d "$HOME/.local/shale/omf" ]; then
   cd $HOME/src/oh-my-fish && bin/install --offline
 fi
 

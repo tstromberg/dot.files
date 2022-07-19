@@ -1,5 +1,5 @@
 " Reminders
-" 
+"
 " Use Ctrl-P more often.
 
 " General settings. ---------------------------------------------------------->

@@ -1,5 +1,5 @@
 if [ -x /usr/bin/apt ]; then
-	sudo apt install -y \
+	$SUDO apt install -y \
 	  cmake \
 	  fish \
 	  git \
@@ -15,10 +15,19 @@ if [ -x /usr/bin/apt ]; then
 	  workrave \
 	  vim-gtk3 \
 	  xautolock \
-	  zsh
+    doas
 
 	# nice to haves
-	sudo apt install -y code xscreensaver-screensaver-bsod || echo "no code or bsod"
+	$SUDO apt install -y code xscreensaver-screensaver-bsod || echo "no code or bsod"
+fi
+
+if [ -x /usr/bin/yay ]; then
+   yay -Syu
+   yay -S google-chrome
+fi
+
+if [ -x /usr/bin/pacman ]; then
+  $SUDO pacman -S fish powerline ttf-opensans rsync workrave neovim doas go vscode nodejs npm tmux
 fi
 
 if [ ! -d "$HOME/.fonts/adobe-fonts" ]; then

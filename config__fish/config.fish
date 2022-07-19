@@ -1,11 +1,28 @@
 set -gx PATH $HOME/bin $HOME/go/bin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
 
-if status --is-login
+if type -q wotd and status is-login
   wotd
 end
 
-set -gx KOCACHE "$HOME/.kocache"
+if type -q duf
+  alias df=duf
+end
 
+if type -q exa
+  alias ls=exa
+end
+
+if type -q dust
+  alias du=dust
+end
+
+if type -q bat
+  alias cat=bat
+end
+
+set -gx KOCACHE "$HOME/.kocache"
+set -gx EDITOR "nvim"
+set -gx CLOUDSDK_PYTHON "/usr/bin/python3"
 set -gx HOMEBREW_PREFIX "/opt/homebrew";
 set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
 set -gx HOMEBREW_REPOSITORY "/opt/homebrew";

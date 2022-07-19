@@ -63,9 +63,9 @@ loop_until_failure() {
   while [[ $exitcode -eq 0 ]]; do
     ((run+=1))
     echo "||| Run #${run}: $@"
-    $@ 2>&1 | tee ${tmpfile}
+    time $@ 2>&1 | tee ${tmpfile}
     exitcode=$?
-    echo "||| Exited with code: $exitcode"
+    echo "||| run #${run} exited with code: $exitcode"
     if [[ $exitcode == 0 ]]; then
       echo "||| Sleeping for 1 seconds ..."
       sleep 1;

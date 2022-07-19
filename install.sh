@@ -53,4 +53,6 @@ do
 done
 
 
+nvim --headless +PlugInstall +qa
+nvim --headless +PlugUpdate +qa
 
