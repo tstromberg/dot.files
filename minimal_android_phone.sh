@@ -2,6 +2,9 @@
 # 
 # Distraction-free Android installer
 #
+# Usage:
+#    ./minimal_android_phone.sh disable distractions
+#
 # This script will disable most sources of distractions on your phone. It requires
 # USB debugging (Developer Mode) to be enabled, and is designed to be run right after
 # a factory reset. It can also be run at any point afterwards.
@@ -28,55 +31,86 @@
 #   - Replace the Android launcher with olauncher
 #   - Change your interface language to one you vaguely understand or want to learn more of
 #   - Force your screen into monochrome mode (Settings -> Developer -> Simulate color space -> Monochromacy)
-# 
-readonly DISABLE_RE="\.(chromium|chrome|verizon|vending|wellbeing|recorder|files|gm|tips|youtube|music|amplifier|gmm|maps|googlequicksearchbox|docs)\$"
+
+readonly BLOAT="
+com.android.musicfx
+com.google.android.apps.nbu.files
+com.google.android.apps.recorder
+com.google.android.apps.tips
+com.google.android.apps.wellbeing
+com.google.android.apps.youtube.music
+com.verizon.llkagent
+com.verizon.mips.services
+com.verizon.services
+"
+
+readonly STORE="com.android.vending"
+readonly GMAIL="com.google.android.gm"
+readonly MAPS="com.google.android.apps.maps"
+
+readonly DISTRACTIONS="
+com.android.chrome
+com.google.android.apps.docs
+com.google.android.apps.docs.editors.docs
+com.google.android.googlequicksearchbox
+com.google.android.googlequicksearchbox.nga_resources
+com.google.android.youtube
+"
 
 # Convenience for an extra path one might happen to have 'adb' installed.
 export PATH=$PATH:$HOME/Downloads/platform-tools
 
-# Disable and uninstall apps for user 0 (default)
-for pkg in $(adb shell pm list packages | sed s/package://g | egrep "${DISABLE_RE}"); do
-  adb shell pm disable-user --user 0 $pkg
-  adb shell pm uninstall --user 0 $pkg
+# "enable" or "disable"
+readonly MODE=$1
+shift
+
+list=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    all)
+      list="${BLOAT} ${DISTRACTIONS} ${MAPS} ${STORE} ${GMAIL}"
+      ;;
+    bloat)
+      list="${list} ${BLOAT}"
+      ;;  
+    distractions)
+      list="${list} ${DISTRACTIONS}"
+      ;;
+    maps)
+      list="${list} ${MAPS}"
+      ;;
+    store)
+      list="${list} ${STORE}"
+      ;;
+    gmail)
+      list="${list} ${GMAIL}"
+      ;;
+    *)
+      echo "unknown group: $1"
+      exit 1
+  esac
+  shift
 done
 
-# Install 3rd party apps with a low likelihood of distraction
-#
-#   - Tesla
-#   - olauncher (to replace the built-in Android launcher)
-#   - Signal
-#   - Garmin Connect (watch)
-#   - Fuji Camera Remote
-#   - Google Keep
-#   - Google Home
-#
-# Mostly sourced through https://apps.evozi.com/apk-downloader/ (no guarantee against malware)
-#
-apps="https://storage.evozi.com/apk/dl/16/09/08/com.teslamotors.tesla_443.apk
-https://storage.evozi.com/apk/dl/20/08/17/app.olauncher_33.apk
-https://updates.signal.org/android/Signal-Android-website-prod-universal-release-5.36.3.apk
-https://storage.evozi.com/apk/dl/16/09/04/com.garmin.android.apps.connectmobile_5519.apk
-https://storage.evozi.com/apk/dl/16/09/07/com.fujifilm_dsc.app.remoteshooter_29.apk
-https://storage.evozi.com/apk/dl/16/09/04/com.google.android.keep_214810140.apk
-"
+APP_RE="$(echo $list | sort -u | grep '\.'| xargs | sed s/' '/'\|'/g)"
 
-# If you need Google Home support, add:
-# https://www.apkmirror.com/wp-content/uploads/2021/12/65/61af968ea9b62/com.google.android.apps.chromecast.app_2.47.1.10-24701100_minAPI23(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk?verify=1652403422-H1no4xuB1mWvwHcIrJLQj5GB7BiBw9yHOm39H6J8O4U
-#
-# For registering new Google home devices, you may need to enable Google:
-#
-# adb shell enable install-existing com.google.android.googlequicksearchbox --user 0
-# adb shell pm enable com.google.android.googlequicksearchbox --user 0
+echo "mode: ${MODE}"
+echo "apps: ${APP_RE}"
 
-for a in $apps; do
-  local="$(basename $(echo $a | cut -d? -f1))"
-
-  pkg=$(echo $local | cut -d_ -f1)
-  adb shell pm list packages | grep ${pkg} && continue
-
-  if [ ! -f "${local}" ]; then
-    curl -L -o "${local}" "${a}"
-  fi
-
-  adb install $local
-done
+case "${MODE}" in
+  enable)
+    for pkg in $(adb shell pm list packages -u | sed s/package://g | egrep "${APP_RE}"); do
+      adb shell pm enable-user --user 0 $pkg
+      adb shell cmd package install-existing --user 0 $pkg
+    done
+    ;;
+  disable)
+    for pkg in $(adb shell pm list packages | sed s/package://g | egrep "${APP_RE}"); do
+      adb shell pm disable-user --user 0 $pkg
+      adb shell pm uninstall --user 0 $pkg
+    done
+    ;;
+  *)
+    echo "unknown mode: ${MODE}"
+    exit 1
+esac
