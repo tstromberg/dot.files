@@ -3,7 +3,7 @@
 " Use Ctrl-P more often.
 
 " General settings. ---------------------------------------------------------->
-set autochdir            " set working directory to match the current file
+"set autochdir            " set working directory to match the current file
 set backup
 set backupdir=~/.vim/backup
 
