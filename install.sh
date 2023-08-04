@@ -13,7 +13,7 @@ dconf_update() {
   fi
   dump=$(mktemp -q)
   dconf dump ${subpath} > "${dump}"
-  if ! diff "${dump}" ${f}; then
+  if ! diff -ubB "${dump}" ${f}; then
     echo "[dcf] ${f}"
     dconf load ${subpath} < ${f}
   fi
@@ -23,7 +23,7 @@ fs="`ls | egrep -v "README|\.sh"` zprofile"
 for f in $fs
 do
   if [ "${f}" = "tilix.conf" ]; then
-    if [ "$(uname)" = "Linux" ]; then 
+    if [ "$(uname)" = "Linux" ]; then
       dconf_update /com/gexperts/Tilix/ "${f}"
     fi
   fi
