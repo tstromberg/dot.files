@@ -32,7 +32,7 @@ if [ ! -x "$HOME/go/bin/golangci-lint" ]; then
   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 fi
 
-if [ ! -d "$HOME/.local/shale/omf" ]; then
+if [ ! -d "$HOME/.local/share/omf" ]; then
   cd $HOME/src/oh-my-fish && bin/install --offline
 fi
 

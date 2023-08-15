@@ -16,8 +16,11 @@ fi
 
 test -x $brewbin/fish -o -x /usr/local/bin/fish || brew install ${brewopts} fish
 test -x $brewbin/shellcheck || brew install ${brewopts} shellcheck
+test -x $brewbin/openssh || brew install ${brewopts} openssh
+test -x $brewbin/go || brew install ${brewopts} go
+test -x $brewbin/nvim || brew install ${brewopts} nvim
 
-if [ ! -f "/Users/tstromberg/Library/Fonts/Source Code Pro for Powerline.otf" ]; then
+if [ ! -f "$HOME/Library/Fonts/Source Code Pro for Powerline.otf" ]; then
   cd /tmp
   if [ ! -f "/tmp/fonts/install.sh" ]; then
     git clone https://github.com/powerline/fonts.git --depth=1
