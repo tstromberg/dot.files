@@ -23,16 +23,33 @@ fi
 
 if [ -x /usr/bin/yay ]; then
    yay -Syu
-   yay -S google-chrome
-fi
-
-if [ -x /usr/bin/pacman ]; then
-  $SUDO pacman -S fish powerline ttf-opensans rsync workrave neovim doas go vscode nodejs npm tmux
+   yay -S google-chrome \
+	code \
+	doas \
+    fish \
+	go \
+	jq \
+	kubectl \
+	libfido2 \
+	neovim \
+	npm \
+	nushell \
+	openbsd-netcat \
+	powerline \
+	rsync \
+	starship \
+	strace \
+	spotify-bin \
+	syft \
+	tcpdump \
+	tmux \
+	ttf-opensans \
+	workrave
 fi
 
 if [ ! -d "$HOME/.fonts/adobe-fonts" ]; then
   git clone --depth 1 --branch release \
     https://github.com/adobe-fonts/source-code-pro.git \
     ~/.fonts/adobe-fonts/source-code-pro
-  fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
+  fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro || false
 fi
