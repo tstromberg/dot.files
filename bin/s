@@ -1,0 +1,6 @@
+#!/bin/sh
+strings - "$1" \
+  | egrep "/[a-zA-Z][a-z]{2,}|[A-Za-z]{4}|[a-zA-Z]{2}-[a-zA-Z]{2}" \
+  | egrep -v "^(__TEXT|__DATA|__text|__stubs|__cstring|__const|__data|__common|__LINKEDIT|__literals|__ojc_methname|__unwind_info|__mod_init_func|__obj_|__la_symbol_ptr|__eh_frame|__DATA_CONST|__PAGEZERO|__init_offsets|__swift5_.*|__objc_.*)$" | uniq
+
+shasum -a 256 "$1"
