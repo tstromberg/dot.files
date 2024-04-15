@@ -20,6 +20,8 @@
 	gpgsign = true
 [gpg "x509"]
 	program = gitsign
+[gitsign]
+	connectorID = https://accounts.google.com
 [gpg]
 	format = x509
 [push]
