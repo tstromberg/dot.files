@@ -1,4 +1,4 @@
-set -gx PATH $HOME/bin $HOME/go/bin $HOME/.local/bin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
+set -gx PATH $HOME/bin $HOME/go/bin $HOME/.local/bin /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
 
 #if type -q wotd and status is-login
     #wotd

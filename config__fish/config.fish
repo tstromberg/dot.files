@@ -1,4 +1,4 @@
-set -gx PATH $HOME/bin $HOME/go/bin $HOME/.local/bin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
+set -gx PATH $HOME/bin $HOME/go/bin $HOME/.local/bin /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
 
 #if type -q wotd and status is-login
     #wotd
@@ -32,3 +32,6 @@ set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/opt/homebrew/share/info"
 
 if [ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; . "$HOME/google-cloud-sdk/path.fish.inc"; end
 if [ -f "$HOME/bin/google-cloud-sdk/path.fish.inc" ]; . "$HOME/bin/google-cloud-sdk/path.fish.inc"; end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/tmp/google-cloud-sdk/path.fish.inc' ]; . '/tmp/google-cloud-sdk/path.fish.inc'; end

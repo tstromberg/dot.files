@@ -17,7 +17,7 @@
 [diff]
     colorMoved = default
 [commit]
-	gpgsign = true
+	# gpgsign = true
 [gpg "x509"]
 	program = gitsign
 [gitsign]
