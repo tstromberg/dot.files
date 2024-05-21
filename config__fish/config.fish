@@ -34,4 +34,4 @@ if [ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; . "$HOME/google-cloud-sdk/path
 if [ -f "$HOME/bin/google-cloud-sdk/path.fish.inc" ]; . "$HOME/bin/google-cloud-sdk/path.fish.inc"; end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/tmp/google-cloud-sdk/path.fish.inc' ]; . '/tmp/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/var/home/t/google-cloud-sdk/path.fish.inc' ]; . '/var/home/t/google-cloud-sdk/path.fish.inc'; end
