@@ -1,24 +1,6 @@
 set -gx PATH $HOME/bin $HOME/go/bin $HOME/.local/bin /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin $fish_user_paths /usr/local/go/bin /usr/pkg/bin /usr/pkg/sbin /opt/homebrew/bin /opt/homebrew/sbin /sbin $PATH
 
-#if type -q wotd and status is-login
-    #wotd
-    #end
-
-if type -q duf
-  alias df=duf
-end
-
-if type -q exa
-  alias ls=exa
-end
-
-if type -q dust
-  alias du=dust
-end
-
-if type -q bat
-  alias cat=bat
-end
+fish_default_key_bindings
 
 set -gx KOCACHE "$HOME/.kocache"
 set -gx EDITOR "nvim"

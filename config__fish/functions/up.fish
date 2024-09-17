@@ -20,8 +20,8 @@ function up
   echo "merging upstream/$up_main into $branch/$my_main"
   git fetch upstream; \
     and git checkout $my_main; \
-    and git merge --ff upstream/$up_main; \
+    and git merge --ff upstream/$up_main -X theirs; \
     and git checkout $branch; \
-    and git merge --ff $my_main
+    and git merge --ff $my_main -X theirs
 end
 
