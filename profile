@@ -6,7 +6,7 @@
 # This should rarely happen.
 if [ "$PATH" = "" ]; then
   PATH="/bin:/usr/bin"
-  echo "No path? Setting $PATH"
+  echo "No path set? Setting $PATH"
 fi
 
 add_bin_paths="$HOME/google-cloud-sdk/bin"
