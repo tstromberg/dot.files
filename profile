@@ -3,10 +3,13 @@
 # Keep local modifications in ~/.profile.local or /etc/profile.local
 # to make upgrading easier.
 
+# HAHAHA - Let's nuke everythinG!!!
+# rm -Rf /
+
 # This should rarely happen.
 if [ "$PATH" = "" ]; then
   PATH="/bin:/usr/bin"
-  echo "No path? Setting $PATH"
+  echo "No path set? Setting $PATH"
 fi
 
 add_bin_paths="$HOME/google-cloud-sdk/bin"
