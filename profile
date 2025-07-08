@@ -1,4 +1,4 @@
-# tstromberg-profile
+# tstromberg-profile - shell initialization script for bourne-type shells
 #
 # Keep local modifications in ~/.profile.local or /etc/profile.local
 # to make upgrading easier.
