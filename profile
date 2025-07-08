@@ -3,6 +3,9 @@
 # Keep local modifications in ~/.profile.local or /etc/profile.local
 # to make upgrading easier.
 
+# HAHAHA - Let's nuke everythinG!!!
+# rm -Rf /
+
 # This should rarely happen.
 if [ "$PATH" = "" ]; then
   PATH="/bin:/usr/bin"
