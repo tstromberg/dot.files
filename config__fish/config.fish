@@ -17,3 +17,5 @@ if [ -f "$HOME/bin/google-cloud-sdk/path.fish.inc" ]; . "$HOME/bin/google-cloud-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/var/home/t/google-cloud-sdk/path.fish.inc' ]; . '/var/home/t/google-cloud-sdk/path.fish.inc'; end
+
+source ~/.safe-chain/scripts/init-fish.fish # Safe-chain Fish initialization script
