@@ -1,12 +1,12 @@
 [user]
-	email = t+github@chainguard.dev
+	email = t+github@codeGROOVE.dev
 	name = Thomas Stromberg
 [merge]
     conflictstyle = diff3
 [diff]
     colorMoved = default
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gpg "x509"]
 	program = gitsign
 [gitsign]
@@ -29,3 +29,9 @@
     stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; \
               do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
 
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
